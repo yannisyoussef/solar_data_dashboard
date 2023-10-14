@@ -34,9 +34,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Build the Docker image
+    - name: Build and Push Docker image
       run: |
+        echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
         docker build -t ghcr.io/${{ github.repository }}/solar-data-dashboard:latest .
+        docker push ghcr.io/${{ github.repository }}/solar-data-dashboard:latest
 
   security-scan:
     needs: build-docker-image
@@ -45,6 +47,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Pull Docker image
+      run: |
+        echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        docker pull ghcr.io/${{ github.repository }}/solar-data-dashboard:latest
 
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
