@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Solar Dashboard</title>
+    <style>
+        /* Styles */
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 5px;
+            display: inline-block;
+            width: calc(25% - 40px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border-bottom: 1px solid #ddd;
+            padding: 8px 12px;
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background-color: white; /* Ensures that the sticky header isn't transparent */
+        }
+
+        .needs-maintenance {
+            background-color: rgba(255, 0, 0, 0.5); /* red with 50% opacity */
+            color: white;
+        }
+
+        .table-container {
+            max-height: 300px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Solar Installations Dashboard</h1>
+
+    <!-- Overview Metrics -->
+    <h2>Overview Metrics</h2>
+    <div class="card">
+        <strong>Total Installations:</strong>
+        <p>{{ total_installations }}</p>
+    </div>
+    <div class="card">
+        <strong>Maintenance Required:</strong>
+        <p>{{ maintenance_required }}</p>
+    </div>
+    <div class="card">
+        <strong>Average Efficiency:</strong>
+        <p>{{ average_efficiency }}%</p>
+    </div>
+    <div class="card">
+        <strong>Total Energy Produced Today:</strong>
+        <p>{{ total_energy_today }} kWh</p>
+    </div>
+
+    <!-- Performance Metrics -->
+    <h2>Performance Metrics</h2>
+
+    <h3>Top 5 Installations by Efficiency</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Energy Produced</th>
+                    <th>Efficiency</th>
+                    <th>Temperature</th>
+                    <th>Maintenance Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows for top 5 installations -->
+                {% for installation in top_5 %}
+                <tr class="{{ 'needs-maintenance' if installation.maintenance_status == 'Needs Maintenance' else '' }}">
+                    <td>{{ installation.latitude }}</td>
+                    <td>{{ installation.longitude }}</td>
+                    <td>{{ installation.energy_produced }}</td>
+                    <td>{{ installation.efficiency }}</td>
+                    <td>{{ installation.temperature }}</td>
+                    <td>{{ installation.maintenance_status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h3>Bottom 5 Installations by Efficiency</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Energy Produced</th>
+                    <th>Efficiency</th>
+                    <th>Temperature</th>
+                    <th>Maintenance Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows for bottom 5 installations -->
+                {% for installation in bottom_5 %}
+                <tr class="{{ 'needs-maintenance' if installation.maintenance_status == 'Needs Maintenance' else '' }}">
+                    <td>{{ installation.latitude }}</td>
+                    <td>{{ installation.longitude }}</td>
+                    <td>{{ installation.energy_produced }}</td>
+                    <td>{{ installation.efficiency }}</td>
+                    <td>{{ installation.temperature }}</td>
+                    <td>{{ installation.maintenance_status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Health Metrics -->
+    <h2>Health Metrics</h2>
+    <p style="text-align: center;">
+        <img src="{{ url_for('static', filename='health_metrics.png') }}" alt="Health Metrics">
+    </p>
+
+    <!-- Table of Installations -->
+    <h2>All Installations</h2>
+    <div class="table-container">
+        <table>
+            <!-- Table headers -->
+            <tr>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Energy Produced</th>
+                <th>Efficiency</th>
+                <th>Temperature</th>
+                <th>Maintenance Status</th>
+            </tr>
+            <!-- Table rows -->
+            {% for installation in data %}
+            <tr class="{{ 'needs-maintenance' if installation.maintenance_status == 'Needs Maintenance' else '' }}">
+                <td>{{ installation.latitude }}</td>
+                <td>{{ installation.longitude }}</td>
+                <td>{{ installation.energy_produced }}</td>
+                <td>{{ installation.efficiency }}</td>
+                <td>{{ installation.temperature }}</td>
+                <td>{{ installation.maintenance_status }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <!-- Action Buttons -->
+    <h2>Reports & Analytics</h2>
+    <a href="/report/daily" class="button">Download Daily Report</a>
+    <a href="/report/weekly" class="button">Download Weekly Report</a>
+    <a href="/report/monthly" class="button">Download Monthly Report</a>
+    <a href="/graphical_report" class="button">View Graphical Report</a>
+
+</body>
+
+</html>

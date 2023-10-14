@@ -1,0 +1,5 @@
+Flask
+Flask-SQLAlchemy
+matplotlib
+APScheduler
+requests
