@@ -13,6 +13,7 @@ build/
 
 # Flask instance-specific
 instance/
+instance/solar_data.db
 
 # Virtual Environment
 venv/
