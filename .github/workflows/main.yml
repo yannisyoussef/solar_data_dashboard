@@ -34,9 +34,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    # Cache Docker layers
+    - name: Cache Docker layers
+      uses: satackey/action-docker-layer-caching@v0.0.11
+      with:
+        key: ${{ runner.os }}-solar-data-dashboard-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-solar-data-dashboard-
+        concurrency: 30
+
     - name: Build the Docker image
       run: |
-        docker build -t solar-data-dashboard:latest .
+        docker build -t ghcr.io/${{ github.repository }}/solar-data-dashboard:latest .
 
   security-scan:
     needs: build-docker-image
@@ -49,7 +58,7 @@ jobs:
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: 'solar-data-dashboard:latest'
+        image-ref: 'ghcr.io/${{ github.repository }}/solar-data-dashboard:latest'
         exit-code: '1'
         ignore-unfixed: true
         format: 'template'
