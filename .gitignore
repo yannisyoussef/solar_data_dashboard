@@ -1,0 +1,53 @@
+# Python and Flask
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+*.log
+*.pot
+*.db
+*.sqlite
+
+# Flask instance-specific
+instance/
+
+# Virtual Environment
+venv/
+
+# IDE - PyCharm
+.idea/
+
+# OS generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Docker
+*.env  # sensitive environment variables
+docker-compose.override.yml
+
+# Terraform
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform/
+
+# Logs
+logs/
+
+# Coverage reports (if you're using a coverage tool)
+.coverage
+coverage/
+
+# Other potential sensitive or redundant files
+secrets.yml
+*.pem
+*.key
+
