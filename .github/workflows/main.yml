@@ -87,7 +87,7 @@ jobs:
 
       - name: Update kubeconfig
         run: |
-          aws eks --region eu-north-1 update-kubeconfig --name my-cluster
+          aws eks --region eu-north-1 update-kubeconfig --name solar-data-cluser
 
       - name: Deploy to Kubernetes
         run: |
