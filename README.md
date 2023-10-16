@@ -1,6 +1,6 @@
 ![Screenshot of Feature 1](https://github.com/yannisyoussef/solar_data_dashboard/assets/83138959/3865a6ed-3c83-48b1-86f6-9cb9f7afb91b)
 ![Screenshot of Feature 1](https://github.com/yannisyoussef/solar_data_dashboard/assets/83138959/060b35d1-a7ec-4705-8377-1b461b9c1261)
-[![S6jUa.gif](https://s6.gifyu.com/images/S6jUa.gif)](https://gifyu.com/image/S6jUa)
+![S6jUa.gif](https://s6.gifyu.com/images/S6jUa.gif)
 # Context and Information for Stakeholders
 
 ## Background:
